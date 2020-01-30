@@ -28,4 +28,31 @@ Configure a global proxy if all access to all repos require this proxy
 ```
 git config --global http.proxy http://proxyUsername:proxyPassword@proxy.server.com:port
 ```
+#### proxy just for specific URL  
 
+If you want to specify that a proxy should be used for just 
+some URLs that specify the URL as a git config subsection
+using `http.<url>.key` notation:
+
+```
+git config --global http.https://domain.com.proxy http://proxyUsername:proxyPassword@proxy.server.com:port
+```
+
+Which will result in the following in the `~/.gitconfig` file:
+
+```
+[http]
+[http "https://domain.com"]
+	proxy = http://proxyUsername:proxyPassword@proxy.server.com:port
+```
+
+### Unset a proxy 
+Use the `--unset` flag to remove configuration being specific about the
+property -- for example whether it was `http.proxy` or `http.<url>.proxy`. 
+Consider using any of the following:
+
+```
+git config --global --unset http.proxy
+git config --global --unset http.https://domain.com.proxy
+
+```
